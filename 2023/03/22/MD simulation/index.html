@@ -24,7 +24,7 @@
 <meta property="og:description" content="一、GPUMD链接1：GPUMD安装包链接2：相关文献和nep数据   1. HNEMD1.1 输入(run.in)设置potential   path&#x2F;to&#x2F;nep.txt velocity    300  ensemble    nvt_nhc 300 300 100 time_step   1 dump_thermo 1000 run         1000000  ensemble">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-22T12:59:08.000Z">
-<meta property="article:modified_time" content="2023-03-29T03:27:09.599Z">
+<meta property="article:modified_time" content="2023-03-29T09:35:11.219Z">
 <meta property="article:author" content="CZ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on 6 hours ago
+                    Last updated on 2 hours ago
                   
                 
               </p>
@@ -476,6 +476,12 @@ run         10000000
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -721,6 +727,49 @@ run         10000000
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
