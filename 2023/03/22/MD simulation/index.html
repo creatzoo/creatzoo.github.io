@@ -16,15 +16,15 @@
   <meta name="author" content="CZ">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、GPUMD链接1：GPUMD安装包链接2：相关文献和nep数据链接3：GPUMD手册 1. HNEMD1.1 输入(run.in)设置potential   path&#x2F;to&#x2F;nep.txt velocity    300  ensemble    nvt_nhc 300 300 100 time_step   1 dump_thermo 1000 run         1000000  en">
+    <meta name="description" content="一、GPUMD链接1：GPUMD安装包链接2：相关文献和nep数据链接3：GPUMD手册前后处理软件：gpymd-原子分组&amp;ensp;　　　　　　calorine-弹性系数、声子.. 1. HNEMD1.1 输入(run.in)设置potential   path&#x2F;to&#x2F;nep.txt velocity    300  ensemble    nvt_nhc 300 300 100 tim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MD simulation">
 <meta property="og:url" content="http://creatzoo.github.io/2023/03/22/MD%20simulation/index.html">
 <meta property="og:site_name" content="科研笔记">
-<meta property="og:description" content="一、GPUMD链接1：GPUMD安装包链接2：相关文献和nep数据链接3：GPUMD手册 1. HNEMD1.1 输入(run.in)设置potential   path&#x2F;to&#x2F;nep.txt velocity    300  ensemble    nvt_nhc 300 300 100 time_step   1 dump_thermo 1000 run         1000000  en">
+<meta property="og:description" content="一、GPUMD链接1：GPUMD安装包链接2：相关文献和nep数据链接3：GPUMD手册前后处理软件：gpymd-原子分组&amp;ensp;　　　　　　calorine-弹性系数、声子.. 1. HNEMD1.1 输入(run.in)设置potential   path&#x2F;to&#x2F;nep.txt velocity    300  ensemble    nvt_nhc 300 300 100 tim">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-03-22T12:59:08.000Z">
-<meta property="article:modified_time" content="2023-04-07T03:07:00.455Z">
+<meta property="article:modified_time" content="2023-04-13T12:34:09.684Z">
 <meta property="article:author" content="CZ">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k words
+          2.7k words
         
       </span>
     
@@ -294,7 +294,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一、GPUMD"><a href="#一、GPUMD" class="headerlink" title="一、GPUMD"></a>一、GPUMD</h1><p>链接1：<a target="_blank" rel="noopener" href="https://github.com/brucefan1983/GPUMD">GPUMD安装包</a><br>链接2：<a target="_blank" rel="noopener" href="https://gitlab.com/brucefan1983/nep-data">相关文献和nep数据</a><br>链接3：<a target="_blank" rel="noopener" href="https://gpumd.org/">GPUMD手册</a></p>
+                <h1 id="一、GPUMD"><a href="#一、GPUMD" class="headerlink" title="一、GPUMD"></a>一、GPUMD</h1><p>链接1：<a target="_blank" rel="noopener" href="https://github.com/brucefan1983/GPUMD">GPUMD安装包</a><br>链接2：<a target="_blank" rel="noopener" href="https://gitlab.com/brucefan1983/nep-data">相关文献和nep数据</a><br>链接3：<a target="_blank" rel="noopener" href="https://gpumd.org/">GPUMD手册</a><br>前后处理软件：<a target="_blank" rel="noopener" href="https://gpyumd.readthedocs.io/en/latest/index.html#">gpymd-原子分组</a><br>&amp;ensp;　　　　　　<a target="_blank" rel="noopener" href="https://calorine.materialsmodeling.org/">calorine-弹性系数、声子..</a></p>
 <h2 id="1-HNEMD"><a href="#1-HNEMD" class="headerlink" title="1. HNEMD"></a>1. HNEMD</h2><h3 id="1-1-输入-run-in-设置"><a href="#1-1-输入-run-in-设置" class="headerlink" title="1.1 输入(run.in)设置"></a>1.1 输入(<strong>run.in</strong>)设置</h3><pre><code class="hljs">potential   path/to/nep.txt
 velocity    300
 
@@ -343,9 +343,11 @@ run         10000000
 </ul>
 <h3 id="2-2-nep-in设置"><a href="#2-2-nep-in设置" class="headerlink" title="2.2 nep.in设置"></a>2.2 nep.in设置</h3><ul>
 <li>默认参数一般是训练精度相对较低，速度相对较高。<ul>
-<li>该参数思路（在不较大影响速度的条件下提高精度）：修改（提高）basis_size不影响速度；计算速度对neuron数不敏感；cutoff对速度影响较大，计算量与截断三次方成正比。</li>
+<li>改参数思路（在不较大影响速度的条件下提高精度）：修改（提高）<em>basis_size</em>不影响速度；计算速度对neuron数不敏感；<em>cutoff</em>对速度影响较大，计算量与截断三次方成正比。  </li>
+<li>3.7版本从默认开始，仅调<strong>截断</strong>。有需要可以微调<em>nmax</em>和<em>neuron</em>，非常复杂的可以调大一点。</li>
 </ul>
 </li>
+<li>控温和控压首选<strong>nvt_bdp</strong>和<strong>npt_scr</strong></li>
 </ul>
 
                 
@@ -383,7 +385,7 @@ run         10000000
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 7, 2023</div>
+          <div>April 13, 2023</div>
         </div>
       
       
