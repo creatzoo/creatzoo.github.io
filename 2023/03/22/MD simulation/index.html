@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://creatzoo.github.io/2023/03/22/MD%20simulation/vasp%E7%B3%BB%E7%BB%BC%E8%AE%BE%E7%BD%AE.png">
 <meta property="article:published_time" content="2023-03-22T12:59:08.000Z">
-<meta property="article:modified_time" content="2023-04-24T07:27:51.439Z">
+<meta property="article:modified_time" content="2023-04-28T02:57:34.027Z">
 <meta property="article:author" content="CZ">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://creatzoo.github.io/2023/03/22/MD%20simulation/vasp%E7%B3%BB%E7%BB%BC%E8%AE%BE%E7%BD%AE.png">
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k words
+          3.2k words
         
       </span>
     
@@ -343,9 +343,40 @@ run         10000000
 <li>NPT系综下，通过AIMD获得300个不同温度（300K、500K、700K）的单元模型；  </li>
 <li>使用PYNEP增加100个构型作为补充。</li>
 </ul>
-<h4 id="2-1-1-用VASP进行AIMD"><a href="#2-1-1-用VASP进行AIMD" class="headerlink" title="2.1.1 用VASP进行AIMD"></a>2.1.1 用VASP进行<strong>AIMD</strong></h4><p>输入文件：INCAR(条件设置)、POSCAR(模型)、POTCAR(赝势)、KPOINTS<br><a target="_blank" rel="noopener" href="https://vaspkit.com/index.html#">VASPKIT</a>：可用来生成输入文件和分析数据<br><a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/index.php/The_VASP_Manual">VASP手册</a><br>系综：  </p>
+<h4 id="2-1-1-用VASP进行AIMD"><a href="#2-1-1-用VASP进行AIMD" class="headerlink" title="2.1.1 用VASP进行AIMD"></a>2.1.1 用VASP进行<strong>AIMD</strong></h4><p>输入文件：INCAR(条件设置)、POSCAR(模型)、POTCAR(赝势)、KPOINTS。<br><a target="_blank" rel="noopener" href="https://vaspkit.com/index.html#">VASPKIT</a>：可用来生成输入文件和分析数据。<br><a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/index.php/The_VASP_Manual">VASP手册</a><br>系综：  </p>
 <img src="/2023/03/22/MD%20simulation/vasp%E7%B3%BB%E7%BB%BC%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload class title="This is a 系综 image">  
 
+<p>a. 拉伸模拟<br>a.1 通过施加外部压力拉伸(三个方向都会被拉伸)<br><strong>INCAR</strong>(单层PbTe)</p>
+<pre><code class="hljs">LCHARG = .FALSE. ; LWAVE = .FALSE.  
+ENCUT = 120  
+GGA = PS  
+System = singlepoint  
+LREAL= Auto  
+NCORE= 4  
+ALGO = very fast  
+MDALGO = 3  
+NWRITE = 2   
+ADDGRID = .TRUE.  
+PREC= Accurate
+
+IBRION = 0 ;  NSW = 1000 ;  POTIM = 1.0  
+TEBEG = 300  
+TEEND = 300
+
+ISIF=3  
+LANGEVIN_GAMMA = 100.0   100.0   100.0  
+LANGEVIN_GAMMA_L = 100.0  
+
+#PMASS = 1  
+PSTRESS = -100   
+#BMIX   = 0.0001  
+MAXMIX = 40  
+ISYM = 0  
+ISMEAR = 0; SIGMA = 0.05;  
+SMASS=0  
+</code></pre>
+<h4 id="2-1-2-hiPhive-高阶力常数计算软件-x2F-开源"><a href="#2-1-2-hiPhive-高阶力常数计算软件-x2F-开源" class="headerlink" title="2.1.2 hiPhive(高阶力常数计算软件&#x2F;开源)"></a>2.1.2 hiPhive(高阶力常数计算软件&#x2F;开源)</h4><p>可以用来构建有随机<strong>原子位移和晶格常数变化</strong>的构型。<br><a target="_blank" rel="noopener" href="https://hiphive.materialsmodeling.org/index.html">手册</a>  </p>
+<h4 id="2-1-3-PyNEP"><a href="#2-1-3-PyNEP" class="headerlink" title="2.1.3 PyNEP"></a>2.1.3 PyNEP</h4><p>通过最远过程采样策略补充未知构型。<br><a target="_blank" rel="noopener" href="https://pynep.readthedocs.io/en/latest/index.html">手册</a></p>
 <h3 id="2-2-nep-in设置"><a href="#2-2-nep-in设置" class="headerlink" title="2.2 nep.in设置"></a>2.2 nep.in设置</h3><ul>
 <li>默认参数一般是训练精度相对较低，速度相对较高。<ul>
 <li>改参数思路（在不较大影响速度的条件下提高精度）：修改（提高）<em>basis_size</em>不影响速度；计算速度对neuron数不敏感；<em>cutoff</em>对速度影响较大，计算量与截断三次方成正比。  </li>
@@ -390,7 +421,7 @@ run         10000000
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 24, 2023</div>
+          <div>April 28, 2023</div>
         </div>
       
       
